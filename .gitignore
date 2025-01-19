@@ -8,3 +8,8 @@
 !.devcontainer/devcontainer.json
 
 !Dockerfile
+
+# Code
+!data.cue
+!ex_tool.cue
+
