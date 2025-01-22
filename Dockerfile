@@ -6,29 +6,26 @@ USER vscode
 ARG GOLANG_VERSION=1.22.11
 WORKDIR /home/vscode/
 ## Golang environment
-RUN <<EOF
-curl -L https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz -o go${GOLANG_VERSION}.linux-amd64.tar.gz
-tar -C . -xzf go${GOLANG_VERSION}.linux-amd64.tar.gz
-EOF
+ADD --chown=vscode:vscode https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz /tmp/go${GOLANG_VERSION}.linux-amd64.tar.gz
+RUN tar -C . -xzf /tmp/go${GOLANG_VERSION}.linux-amd64.tar.gz
 
 ENV PATH=/home/vscode/go/bin:$PATH
+ENV GOCACHE=/home/vscode/.cache/go-build
 
 ARG DELVE_VERSION=v1.24.0
 ARG GOPLS_VERSION=latest
-RUN <<EOF
+RUN --mount=type=cache,target=${GOCACHE},uid=1000,gid=1000 <<EOF
 go install github.com/go-delve/delve/cmd/dlv@${DELVE_VERSION}
 go install golang.org/x/tools/gopls@${GOPLS_VERSION}
 EOF
 
 ARG CUELANG_VERSION=v0.11.1
 ### Install CUE
-RUN go install cuelang.org/go/cmd/cue@${CUELANG_VERSION}
+RUN --mount=type=cache,target=${GOCACHE},uid=1000,gid=1000 \
+    go install cuelang.org/go/cmd/cue@${CUELANG_VERSION}
 
 ## Install HOF
 ARG HOF_VERSION=v0.6.9
-RUN <<EOF
-git clone https://github.com/hofstadter-io/hof /tmp/hof
-cd /tmp/hof
-git checkout ${HOF_VERSION}
-make hof
-EOF
+ADD --chown=vscode:vscode --chmod=0555 https://github.com/hofstadter-io/hof/releases/download/${HOF_VERSION}/hof_${HOF_VERSION}_linux_amd64 /usr/bin/hof
+
+WORKDIR /home/vscode
