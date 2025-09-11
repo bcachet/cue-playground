@@ -8,4 +8,9 @@
 !.devcontainer/devcontainer.json
 
 # Code
+!cue.mod/
+!cue.mod/*.cue
+!resources/
+!resources/*.cue
 !*.cue
+!*

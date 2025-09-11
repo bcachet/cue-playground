@@ -13,5 +13,5 @@ Quick reading of cuelang.org/cuetutorials.org give feeling that it is doable, le
 
 First little workflow
 ```shell
-cue cmd prompter
+cue cmd podman
 ```
