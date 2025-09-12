@@ -1,12 +1,7 @@
 package resources
 
 #Image: {
-	registry?: string
+	registry: string | *"docker.io"
 	name!:     string
-	tag?:      string
-}
-
-#Arg: {
-	name!:  string
-	value!: string
+	tag:      string | *"latest"
 }

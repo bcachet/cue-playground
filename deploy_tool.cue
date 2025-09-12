@@ -1,4 +1,4 @@
-package foo
+package deploy
 
 import (
 	"tool/exec"
@@ -18,6 +18,6 @@ command: podman: {
 
 	pull: exec.Run & {
 		cmd: ["docker", "pull", var.service.image.name]
-		stdout: string // capture stdout, don't print to the terminal
+		// stdout: string // capture stdout, don't print to the terminal
 	}
 }

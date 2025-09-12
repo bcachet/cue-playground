@@ -10,7 +10,4 @@
 # Code
 !cue.mod/
 !cue.mod/*.cue
-!resources/
-!resources/*.cue
 !*.cue
-!*

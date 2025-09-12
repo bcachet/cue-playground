@@ -1,17 +1,19 @@
 # CUE playground
 
-Environment to play with CUE.
+Devecontainer environment to play with CUE. You can open this project in Codespace and have everything ready to play with CUE.
 
-Objective is to be able to deploy an application as a Podman container into a VM.
+## Objective
 
-We aim at defining our application via CUE and define the deployment workflow as CUE script.
+Objective is to be able to deploy an application into Kubernetes
 
-Quick reading of cuelang.org/cuetutorials.org give feeling that it is doable, let's validate !
+We aim at defining our application via CUE and generate associated Kubernetes manifests out of it.
+
+We may rely on CUE script to interact with kubectl or other tooling.
 
 
 ## Usage
 
-First little workflow
+Generate Kubernetes manifests of configured services
 ```shell
-cue cmd podman
+cue export .:services -e manifests --out yaml
 ```

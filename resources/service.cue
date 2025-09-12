@@ -4,3 +4,8 @@ package resources
 	image!: #Image
 	args?: [...#Arg]
 }
+
+#Arg: {
+	name!:  string
+	value!: string
+}
