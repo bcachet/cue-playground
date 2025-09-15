@@ -1,11 +1,19 @@
 package resources
 
-#Service: {
-	image!: #Image
-	args?: [...#Arg]
+#Probe: {
+	...
 }
 
-#Arg: {
-	name!:  string
-	value!: string
+#Env: {
+	...
+}
+
+#Service: {
+	image!: #Image
+	env?: [...#Env]
+	
+	probes? : {
+		health?: #Probe
+		ready?: #Probe
+	}
 }
